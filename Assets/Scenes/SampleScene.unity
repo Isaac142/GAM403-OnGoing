@@ -492,16 +492,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1137851947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3538f322274e8a9478928e01f39c1e93, type: 3}
+  m_Script: {fileID: 11500000, guid: 389db5633bb9df942b130a4d4c18627c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 0.01
-  speedBurst: 0.01
-  ammo: 100
+  myLight: {fileID: 170076734}
   health: 100
-  accuracy: 15.5
-  player: Isaac
-  starting: {x: 5, y: 5, z: 5}
+  healthBonus: 10
+  speed: 0.05
 --- !u!136 &1137851949
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -569,7 +566,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137851947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
