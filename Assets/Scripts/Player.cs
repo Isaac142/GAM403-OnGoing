@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     {
         //AddToHealth();
 
+        Debug.Log(health);
+
         if (Input.GetKey(KeyCode.H))
         {
             AddToHealth(1);
@@ -60,6 +62,22 @@ public class Player : MonoBehaviour
         transform.Translate(new Vector3(h, 0, v) * speed);
     }
 
+
+    private void FixedUpdate()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(transform.position, Vector3.forward, out hit, 100.0f))
+            {
+                print("Found a: " + hit.collider.name);
+                hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+            }
+
+            Debug.DrawRay(transform.position, Vector3.forward, Color.blue);
+        }
+    }
     //This adds to our health
     void AddToHealth()
     {
@@ -71,5 +89,39 @@ public class Player : MonoBehaviour
     void AddToHealth(int healthModifier)
     {
         health += healthModifier;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+        if (other.gameObject.CompareTag("Poison"))
+        {
+            Debug.Log("Entered the poison zone");
+            GetComponent<Renderer>().material.color = Color.magenta;
+        }
+
+        if (other.gameObject.CompareTag("Health"))
+        {
+            Debug.Log("Entered the health zone");
+            GetComponent<Renderer>().material.color = Color.green;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Poison"))
+        {
+            health -= 1;
+        }
+
+        if (other.gameObject.CompareTag("Health"))
+        {
+            health += 1;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        GetComponent<Renderer>().material.color = Color.white;
     }
 }
