@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
     GameObject player;
     public float dist;
+    NavMeshAgent agent;
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        agent = GetComponent<NavMeshAgent>();
+        StartAgent(player.transform.position);
+        InvokeRepeating("StopAgent", 5, 7);
+
     }
 
     // Update is called once per frame
@@ -20,6 +26,7 @@ public class Enemy : MonoBehaviour
 
         if (dist <= 15.0f)
         {
+            StartAgent(player.transform.position);
             transform.LookAt(player.transform);
         }
 
@@ -29,5 +36,16 @@ public class Enemy : MonoBehaviour
         }
         else
             GetComponent<Renderer>().material.color = Color.red;
+    }
+
+    void StopAgent()
+    {
+        agent.isStopped = true;
+    }
+
+    void StartAgent(Vector3 newPos)
+    {
+        agent.isStopped = false;
+        agent.SetDestination(newPos);
     }
 }
